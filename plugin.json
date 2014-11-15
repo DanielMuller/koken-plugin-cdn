@@ -1,0 +1,37 @@
+{
+	"name": "CDN for images",
+	"version": "1.0",
+	"description": "Allows to use a different hostname to serve images",
+	"author": {
+		"name": "Daniel Muller",
+		"link": "http://daniel.ctrlaltdel.ch"
+	},
+	"data": {
+		"cdn_host": {
+			"label": "CDN host",
+			"info": "CDN hostname to deliver content",
+			"type": "string"
+		},
+		"cdn_image": {
+			"label": "Use CDN for Images",
+			"type": "boolean",
+            "value": true
+		},
+		"cdn_js": {
+			"label": "Use CDN for Javascript",
+			"type": "boolean",
+            "value": true
+		},
+		"cdn_css": {
+			"label": "Use CDN for Stylesheet",
+			"type": "boolean",
+            "value": true
+		},
+		"cdn_icon": {
+			"label": "Use CDN for Icons",
+			"type": "boolean",
+            "value": true
+		}
+	}
+}
+

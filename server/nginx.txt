@@ -1,0 +1,7 @@
+location ~ ".*\.(js|css|lens|png|ico|ttf|woff)$" {
+	expires 2h;
+}
+if ($content_type = "text/html") {
+	expires 1h;
+}
+add_header 'Access-Control-Allow-Origin' '*';
