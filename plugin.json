@@ -12,6 +12,11 @@
 			"info": "CDN hostname to deliver content",
 			"type": "string"
 		},
+		"cdn_http": {
+			"label": "Force HTTP for CDN links",
+			"type": "boolean",
+			"value": false
+		},
 		"cdn_image": {
 			"label": "Use CDN for Images",
 			"type": "boolean",

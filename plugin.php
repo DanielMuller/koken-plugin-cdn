@@ -17,14 +17,26 @@ class MesphotosFilterTesting extends KokenPlugin {
                     $data['presets'][$quality]['cropped']['url']=str_replace($url_parts['host'],trim($this->data->cdn_host),$details['cropped']['url']);
                     $data['presets'][$quality]['cropped']['hdpi_url']=str_replace($url_parts['host'],trim($this->data->cdn_host),$details['cropped']['hdpi_url']);
                 }
+
+                $is_ssl = isset($_SERVER['HTTPS']) ? $_SERVER['HTTPS'] === 'on' || $_SERVER['HTTPS'] === 1 : $_SERVER['SERVER_PORT'] == 443;
+                if ($this->data->cdn_http==1 && $is_ssl) {
+                    $data['cache_path']['prefix']=str_replace("https://","http://",$data['cache_path']['prefix']);
+                    foreach ($data['presets'] as $quality => $details) {
+                        $data['presets'][$quality]['url']=str_replace("https://","http://",$details['url']);
+                        $data['presets'][$quality]['hdpi_url']=str_replace("https://","http://",$details['hdpi_url']);
+                        $data['presets'][$quality]['cropped']['url']=str_replace("https://","http://",$details['cropped']['url']);
+                        $data['presets'][$quality]['cropped']['hdpi_url']=str_replace("https://","http://",$details['cropped']['hdpi_url']);
+                    }
+                }
             }
             return $data;
         }
 
         function render_site($data) {
+            $proto = ($this->data->cdn_http==1) ? "http:" : "" ;
             $pattern = Array();
             $replacement = Array();
-            $std_replacement = '\1//'.trim($this->data->cdn_host).'\2';
+            $std_replacement = '\1'.$proto.'//'.trim($this->data->cdn_host).'\2';
 
             if ($this->data->cdn_js==1) {
                 $pattern[] = '/(script.+src=")(\/[^\/][^"]+")/';
