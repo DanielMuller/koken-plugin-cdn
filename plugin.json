@@ -15,22 +15,22 @@
 		"cdn_image": {
 			"label": "Use CDN for Images",
 			"type": "boolean",
-            "value": true
+			"value": true
 		},
 		"cdn_js": {
 			"label": "Use CDN for Javascript",
 			"type": "boolean",
-            "value": true
+			"value": true
 		},
 		"cdn_css": {
 			"label": "Use CDN for Stylesheet",
 			"type": "boolean",
-            "value": true
+			"value": true
 		},
 		"cdn_icon": {
 			"label": "Use CDN for Icons",
 			"type": "boolean",
-            "value": true
+			"value": true
 		}
 	}
 }
