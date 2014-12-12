@@ -17,3 +17,10 @@ Configuration
 
 Once installed, you need to define the alternate domain name to use. As long as the domain is not defined, the plugin will skip rewriting the URL's.
 By default all assets types are routed using the alternate domain name. You can disable depending on the type.
+
+Compatibility
+-------------
+For CSS, Javascripts, Stylesheets and Icons, only relative links are rewritten to make use of the CDN. If you use the `HTML Injector` plugin, make sure to use relative links for your icons.
+```
+<link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+```
