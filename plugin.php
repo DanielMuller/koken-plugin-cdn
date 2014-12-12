@@ -33,25 +33,27 @@ class MesphotosFilterTesting extends KokenPlugin {
         }
 
         function render_site($data) {
-            $proto = ($this->data->cdn_http==1) ? "http:" : "" ;
-            $pattern = Array();
-            $replacement = Array();
-            $std_replacement = '\1'.$proto.'//'.trim($this->data->cdn_host).'\2';
+            if (trim($this->data->cdn_host)!="") {
+                $proto = ($this->data->cdn_http==1) ? "http:" : "" ;
+                $pattern = Array();
+                $replacement = Array();
+                $std_replacement = '\1'.$proto.'//'.trim($this->data->cdn_host).'\2';
 
-            if ($this->data->cdn_js==1) {
-                $pattern[] = '/(script.+src=")(\/[^\/][^"]+")/';
-                $replacement[] = $std_replacement;
-            }
-            if ($this->data->cdn_css==1) {
-                $pattern[] = '/(rel="stylesheet".+href=")(\/[^\/][^"]+")/';
-                $replacement[] = $std_replacement;
-            }
-            if ($this->data->cdn_icon==1) {
-                $pattern[] = '/(rel=".*icon".+href=")(\/[^\/][^"]+")/';
-                $replacement[] = $std_replacement;
-            }
-            if (sizeof($pattern)>0) {
-                return preg_replace($pattern,$replacement,$data);
+                if ($this->data->cdn_js==1) {
+                    $pattern[] = '/(script.+src=")(\/[^\/][^"]+")/';
+                    $replacement[] = $std_replacement;
+                }
+                if ($this->data->cdn_css==1) {
+                    $pattern[] = '/(rel="stylesheet".+href=")(\/[^\/][^"]+")/';
+                    $replacement[] = $std_replacement;
+                }
+                if ($this->data->cdn_icon==1) {
+                    $pattern[] = '/(rel=".*icon".+href=")(\/[^\/][^"]+")/';
+                    $replacement[] = $std_replacement;
+                }
+                if (sizeof($pattern)>0) {
+                    return preg_replace($pattern,$replacement,$data);
+                }
             }
 
             return $data;
