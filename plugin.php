@@ -3,8 +3,10 @@
 class MesphotosFilterTesting extends KokenPlugin {
 
         function __construct() {
-            $this->register_filter("api.content","render_api");
-            $this->register_filter("site.output","render_site");
+            if ($_SERVER['SCRIPT_URL'] != "/preview.php") {
+                $this->register_filter("api.content","render_api");
+                $this->register_filter("site.output","render_site");
+            }
         }
 
         function render_api($data) {
