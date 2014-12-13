@@ -1,6 +1,6 @@
 <?php
 
-class MesphotosFilterTesting extends KokenPlugin {
+class MesphotosCdn extends KokenPlugin {
 
         function __construct() {
             if ($_SERVER['SCRIPT_URL'] != "/preview.php") {
