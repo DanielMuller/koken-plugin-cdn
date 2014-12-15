@@ -3,6 +3,7 @@
 class MesphotosCdn extends KokenPlugin {
 
         function __construct() {
+            $this->require_setup = true;
             $this->register_filter("api.content","render_api");
             $this->register_filter("site.output","render_site");
         }
