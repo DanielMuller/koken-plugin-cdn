@@ -9,7 +9,7 @@ class MesphotosCdn extends KokenPlugin {
         }
 
         function render_api($data) {
-            $live = ($_SERVER['SCRIPT_URL'] != "/preview.php");
+            $live = ($_SERVER['SCRIPT_NAME'] != "/preview.php");
             if (trim($this->data->cdn_host)!="" && $this->data->cdn_image==1 && $live) {
                 $url_parts = parse_url(base_url("/"));
                 $data['cache_path']['prefix']=str_replace($url_parts['host'],trim($this->data->cdn_host),$data['cache_path']['prefix']);
@@ -35,7 +35,7 @@ class MesphotosCdn extends KokenPlugin {
         }
 
         function render_site($data) {
-            $live = ($_SERVER['SCRIPT_URL'] != "/preview.php");
+            $live = ($_SERVER['SCRIPT_NAME'] != "/preview.php");
             if (trim($this->data->cdn_host)!="" && $live) {
                 $proto = ($this->data->cdn_http==1) ? "http:" : "" ;
                 $pattern = Array();
