@@ -11,27 +11,33 @@ class MesphotosCdn extends KokenPlugin {
         function render_api($data) {
             $live = ($_SERVER['SCRIPT_NAME'] != "/preview.php");
             if (trim($this->data->cdn_host)!="" && $this->data->cdn_image==1 && $live) {
-                $url_parts = parse_url(base_url("/"));
-                $data['cache_path']['prefix']=str_replace($url_parts['host'],trim($this->data->cdn_host),$data['cache_path']['prefix']);
+                $data['cache_path']['prefix'] = $this->replace_host($data['cache_path']['prefix']);
                 foreach ($data['presets'] as $quality => $details) {
-                    $data['presets'][$quality]['url']=str_replace($url_parts['host'],trim($this->data->cdn_host),$details['url']);
-                    $data['presets'][$quality]['hidpi_url']=str_replace($url_parts['host'],trim($this->data->cdn_host),$details['hidpi_url']);
-                    $data['presets'][$quality]['cropped']['url']=str_replace($url_parts['host'],trim($this->data->cdn_host),$details['cropped']['url']);
-                    $data['presets'][$quality]['cropped']['hidpi_url']=str_replace($url_parts['host'],trim($this->data->cdn_host),$details['cropped']['hidpi_url']);
-                }
-
-                $is_ssl = isset($_SERVER['HTTPS']) ? $_SERVER['HTTPS'] === 'on' || $_SERVER['HTTPS'] === 1 : $_SERVER['SERVER_PORT'] == 443;
-                if ($this->data->cdn_http==1 && $is_ssl) {
-                    $data['cache_path']['prefix']=str_replace("https://","http://",$data['cache_path']['prefix']);
-                    foreach ($data['presets'] as $quality => $details) {
-                        $data['presets'][$quality]['url']=str_replace("https://","http://",$details['url']);
-                        $data['presets'][$quality]['hidpi_url']=str_replace("https://","http://",$details['hidpi_url']);
-                        $data['presets'][$quality]['cropped']['url']=str_replace("https://","http://",$details['cropped']['url']);
-                        $data['presets'][$quality]['cropped']['hidpi_url']=str_replace("https://","http://",$details['cropped']['hidpi_url']);
-                    }
+                    $data['presets'][$quality]['url'] = $this->replace_host($details['url']);
+                    $data['presets'][$quality]['hidpi_url'] = $this->replace_host($details['hidpi_url']);
+                    $data['presets'][$quality]['cropped']['url'] = $this->replace_host($details['cropped']['url']);
+                    $data['presets'][$quality]['cropped']['hidpi_url'] = $this->replace_host($details['cropped']['hidpi_url']);
                 }
             }
             return $data;
+        }
+
+        function replace_host($url) {
+            $url_parts = parse_url($url);
+
+            $is_ssl = isset($_SERVER['HTTPS']) ? $_SERVER['HTTPS'] === 'on' || $_SERVER['HTTPS'] === 1 : $_SERVER['SERVER_PORT'] == 443;
+            if ($is_ssl) {
+                if ($this->data->cdn_http==1) $scheme="http";
+                else $scheme="https";
+            }
+            else {
+                $scheme="http";
+            }
+
+            $url_parts['host'] = trim($this->data->cdn_host);
+            $url_parts['scheme'] = $scheme;
+
+            return $url_parts['scheme']."://".$url_parts['host'].(array_key_exists('path',$url_parts) ? $url_parts['path'] : "").( array_key_exists('query',$url_parts) ? "?".$url_parts['query'] : "");
         }
 
         function render_site($data) {
@@ -58,8 +64,6 @@ class MesphotosCdn extends KokenPlugin {
                     return preg_replace($pattern,$replacement,$data);
                 }
             }
-
             return $data;
         }
 }
-
