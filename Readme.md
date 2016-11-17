@@ -1,7 +1,7 @@
 CDN plugin for Koken
 ====================
 
-This [Koken](http://koken.me) plugin allows to use an alternate domain name for different asset types (images, scripts, stylesheets) and thereofre route them through a CDN instead of serving them directly.
+This [Koken](http://koken.me) plugin allows to use an alternate domain name for different asset types (images, scripts, stylesheets) and therefore route them through a CDN instead of serving them directly.
 
 CDN requirement
 ---------------
