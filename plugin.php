@@ -12,6 +12,7 @@ class MesphotosCdn extends KokenPlugin {
             $live = ($_SERVER['SCRIPT_NAME'] != "/preview.php");
             if (trim($this->data->cdn_host)!="" && $this->data->cdn_image==1 && $live) {
                 $data['cache_path']['prefix'] = $this->replace_host($data['cache_path']['prefix']);
+                $data['cache_path']['relative_prefix'] = $this->replace_host($data['cache_path']['relative_prefix']);
                 foreach ($data['presets'] as $quality => $details) {
                     $data['presets'][$quality]['url'] = $this->replace_host($details['url']);
                     $data['presets'][$quality]['hidpi_url'] = $this->replace_host($details['hidpi_url']);
