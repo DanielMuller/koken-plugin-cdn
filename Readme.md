@@ -1,5 +1,14 @@
 CDN plugin for Koken
 ====================
+Disclaimer
+-----------------
+This repo is now archieved.
+
+I am no longer a user of [Koken](http://koken.me/) and have migrated my Gallery to [Yapawa](https://yapawa.net/), a gallery site that I developped.
+
+Thank you Koken Team for your awesome tool that allowed me to host my pictures during many years.
+
+---
 
 This [Koken](http://koken.me) plugin allows to use an alternate domain name for different asset types (images, scripts, stylesheets) and therefore route them through a CDN instead of serving them directly.
 
